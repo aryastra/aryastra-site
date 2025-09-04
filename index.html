@@ -16,27 +16,46 @@
       color: white;
       font-family: 'Arial', sans-serif;
       text-align: center;
+      padding: 20px;
     }
     h1 {
-      font-size: 3rem;
-      letter-spacing: 3px;
+      font-size: 2.5rem;
+      letter-spacing: 2px;
       margin-bottom: 20px;
     }
     .countdown {
       display: flex;
-      gap: 20px;
-      font-size: 1.5rem;
+      flex-wrap: wrap; /* Allow wrapping on small screens */
+      gap: 10px;
+      justify-content: center;
     }
     .time-box {
       background: rgba(255, 255, 255, 0.1);
-      padding: 20px 30px;
+      padding: 15px 20px;
       border-radius: 10px;
-      min-width: 80px;
+      min-width: 70px;
     }
     .number {
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: bold;
       display: block;
+    }
+
+    /* Responsive for mobile */
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 2rem;
+      }
+      .countdown {
+        gap: 8px;
+      }
+      .time-box {
+        padding: 10px 15px;
+        min-width: 60px;
+      }
+      .number {
+        font-size: 1.4rem;
+      }
     }
   </style>
 </head>
@@ -50,7 +69,6 @@
   </div>
 
   <script>
-    // Set countdown date (3 months from now)
     const launchDate = new Date();
     launchDate.setMonth(launchDate.getMonth() + 3);
 
@@ -75,7 +93,7 @@
     }
 
     setInterval(updateCountdown, 1000);
-    updateCountdown(); // initial call
+    updateCountdown();
   </script>
 </body>
 </html>
