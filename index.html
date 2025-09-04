@@ -25,10 +25,10 @@
     }
     .countdown {
       display: flex;
-      flex-wrap: wrap; /* allow wrapping */
+      flex-wrap: nowrap; /* keep in one row on large screens */
       gap: 10px;
       justify-content: center;
-      max-width: 400px;
+      min-width: 420px; /* enough space for 4 boxes */
     }
     .time-box {
       background: rgba(255, 255, 255, 0.1);
@@ -50,8 +50,9 @@
       }
       .countdown {
         display: grid;
-        grid-template-columns: repeat(2, 1fr); /* 2 columns */
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
         gap: 12px;
+        min-width: auto; /* reset so it can shrink */
       }
       .time-box {
         padding: 12px 10px;
