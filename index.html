@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Aryastra — Coming Soon</title>
+<meta name="description" content="Aryastra — Website deploying soon." />
+<style>
+  :root{
+    --bg1: #0b1220;
+    --bg2: #071021;
+    --accent: #ffd88a;
+    --mask-size: 160px; /* spotlight size */
+  }
+
+  /* Reset */
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body,#app{height:100%}
+  body{
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    background: radial-gradient(1200px 600px at 10% 20%, rgba(255,216,138,0.04), transparent 8%),
+                linear-gradient(180deg,var(--bg1),var(--bg2));
+    color: #fff;
+    overflow:hidden;
+  }
+
+  /* center container */
+  .stage{
+    min-height:100vh;
+    display:grid;
+    place-items:center;
+    padding:32px;
+    position:relative;
+    text-align:center;
+  }
+
+  /* The content that will be revealed */
+  .card{
+    width:min(920px,95vw);
+    border-radius:18px;
+    padding:48px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+    backdrop-filter: blur(6px) saturate(110%);
+    position:relative;
+    z-index:1;
+  }
+
+  h1{
+    font-size: clamp(28px, 5.5vw, 56px);
+    letter-spacing:0.02em;
+    margin-bottom:12px;
+    font-weight:700;
+  }
+  p.lead{
+    font-size: clamp(14px, 2.2vw, 18px);
+    opacity:0.85;
+    margin-bottom:18px;
+  }
+
+  .meta{
+    display:flex;
+    gap:12px;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+  .pill{
+    padding:8px 14px;
+    border-radius:999px;
+    background:rgba(255,255,255,0.03);
+    color:var(--accent);
+    font-weight:600;
+    backdrop-filter: blur(4px);
+  }
+
+  /* The overlay that hides content and becomes punched through by the spotlight */
+  .overlay{
+    position:fixed;
+    inset:0;
+    z-index:5;
+    pointer-events:none; /* let mouse pass through - we handle pointer at document level */
+    background: linear-gradient(180deg, rgba(3,6,12,0.85), rgba(2,4,8,0.9));
+    transition:opacity 300ms ease;
+    /* mask creates transparent center at spotlight; browsers differ so define both */
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+    -webkit-mask-image: radial-gradient(circle var(--mask-size) at var(--mx) var(--my), transparent 0%, transparent 40%, black 60%);
+    mask-image: radial-gradient(circle var(--mask-size) at var(--mx) var(--my), transparent 0%, transparent 40%, black 60%);
+  }
+
+  /* Message shown above overlay (for when JS disabled) */
+  .no-js-hint{
+    display:none;
+    position:fixed;
+    z-index:9;
+    inset:auto 0 36px 0;
+    text-align:center;
+    color: rgba(255,255,255,0.65);
+    font-size:13px;
+    pointer-events:none;
+  }
+
+  /* Small instruction */
+  .hint{
+    margin-top:18px;
+    opacity:0.7;
+    font-size:13px;
+  }
+
+  /* Animated pulsing circle at center (subtle) - visible only if mask-size animates */
+  @keyframes pulse-size {
+    0%{ --mask-size: 120px; }
+    50%{ --mask-size: 150px; }
+    100%{ --mask-size: 120px; }
+  }
+
+  /* subtle deploying pulse text */
+  .deploying{
+    display:inline-block;
+    margin-top:10px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    color:var(--accent);
+    animation: glow 2.6s ease-in-out infinite;
+    text-transform:uppercase;
+    font-size:12px;
+  }
+  @keyframes glow {
+    0%{ text-shadow: 0 0 0 rgba(255,216,138,0.0); }
+    50%{ text-shadow: 0 0 24px rgba(255,216,138,0.08); }
+    100%{ text-shadow: 0 0 0 rgba(255,216,138,0.0); }
+  }
+
+  /* small footer */
+  footer{
+    position:fixed;
+    bottom:18px;
+    left:18px;
+    z-index:7;
+    font-size:13px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* responsive tweaks */
+  @media (max-width:560px){
+    .card{padding:28px;border-radius:14px;}
+    .meta{gap:8px}
+  }
+</style>
+</head>
+<body>
+  <div id="app" class="stage" role="main" aria-labelledby="site-title">
+    <div class="card" aria-hidden="false">
+      <h1 id="site-title">ARYASTRA</h1>
+      <p class="lead">Ancient wisdom. New clarity. We’re preparing the space. Move your cursor to reveal the world.</p>
+
+      <div class="meta" aria-hidden="true">
+        <span class="pill">Theology • Philosophy</span>
+        <span class="pill">Scriptural & Historical</span>
+        <span class="pill">Coming Soon</span>
+      </div>
+
+      <div class="hint" aria-hidden="true">
+        <span class="deploying">Deploying Soon</span>
+      </div>
+    </div>
+
+    <div class="overlay" id="overlay" aria-hidden="true" style="--mx:50% ; --my:50% ; --mask-size:160px;"></div>
+
+    <div class="no-js-hint" id="no-js">Move your mouse to reveal — if nothing happens, enable JavaScript.</div>
+  </div>
+
+  <footer aria-hidden="true">aryastra.com</footer>
+
+<script>
+  (function(){
+    const overlay = document.getElementById('overlay');
+    const noJs = document.getElementById('no-js');
+    // Default center
+    let mx = window.innerWidth / 2;
+    let my = window.innerHeight / 2;
+    // track last movement to detect idle
+    let lastMove = Date.now();
+    let idleTimer = null;
+    let pulseActive = false;
+
+    // Apply CSS variable helpers
+    function setMask(x, y, size){
+      overlay.style.setProperty('--mx', x + 'px');
+      overlay.style.setProperty('--my', y + 'px');
+      overlay.style.setProperty('--mask-size', size + 'px');
+      // also set mask-image for webkit browsers directly for some compatibility
+      const radial = `radial-gradient(circle ${size}px at ${x}px ${y}px, transparent 0%, transparent 40%, black 60%)`;
+      overlay.style.webkitMaskImage = radial;
+      overlay.style.maskImage = radial;
+    }
+
+    // Handler for pointer movement (mouse or touch)
+    function handleMove(clientX, clientY){
+      lastMove = Date.now();
+      if (idleTimer) { clearTimeout(idleTimer); idleTimer = null; }
+      if (pulseActive) {
+        // stop any ongoing CSS animation by toggling a class — we'll just stop by removing style
+        overlay.style.animation = '';
+        pulseActive = false;
+      }
+
+      // Slight easing: move the target a little towards pointer for smoother feel
+      mx = clientX;
+      my = clientY;
+      // spotlight size responsive to viewport
+      const base = Math.min(Math.max(window.innerWidth, 380) / 3.8, 240);
+      setMask(mx, my, Math.round(base));
+
+      // set idle detection to re-enable subtle pulse after 1.2s
+      idleTimer = setTimeout(() => {
+        pulseActive = true;
+        // animate mask-size with JS animation loop for broader browser support
+        startPulse(mx, my, Math.round(base));
+      }, 1200);
+    }
+
+    // Pulse loop when idle: gently vary size
+    let pulseRaf = null;
+    function startPulse(x, y, base){
+      let t0 = performance.now();
+      cancelAnimationFrame(pulseRaf);
+      function loop(t){
+        const dt = (t - t0)/1000;
+        const pulse = 1 + 0.08 * Math.sin(dt * 2.0); // subtle
+        setMask(x, y, Math.round(base * pulse));
+        pulseRaf = requestAnimationFrame(loop);
+      }
+      pulseRaf = requestAnimationFrame(loop);
+    }
+
+    // Mouse
+    window.addEventListener('mousemove', (e) => {
+      handleMove(e.clientX, e.clientY);
+    }, {passive:true});
+
+    // Touch
+    window.addEventListener('touchstart', (ev) => {
+      const t = ev.touches[0];
+      if (t) handleMove(t.clientX, t.clientY);
+    }, {passive:true});
+    window.addEventListener('touchmove', (ev) => {
+      const t = ev.touches[0];
+      if (t) handleMove(t.clientX, t.clientY);
+    }, {passive:true});
+
+    // When resizing, keep default center sensible
+    window.addEventListener('resize', () => {
+      mx = window.innerWidth / 2;
+      my = window.innerHeight / 2;
+      handleMove(mx, my);
+    });
+
+    // initial set
+    setMask(mx, my, 160);
+    noJs.style.display = 'none';
+    // make overlay pointer-events none but to ensure keyboard users can still navigate, allow focusing on doc
+    document.body.tabIndex = -1;
+  })();
+</script>
+</body>
+</html>
