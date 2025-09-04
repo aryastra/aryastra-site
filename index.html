@@ -25,15 +25,17 @@
     }
     .countdown {
       display: flex;
-      flex-wrap: wrap; /* allow wrapping for mobile */
+      flex-wrap: wrap; /* allow wrapping */
       gap: 10px;
       justify-content: center;
+      max-width: 400px;
     }
     .time-box {
       background: rgba(255, 255, 255, 0.1);
       padding: 15px 20px;
       border-radius: 10px;
-      min-width: 70px;
+      min-width: 80px;
+      text-align: center;
     }
     .number {
       font-size: 1.8rem;
@@ -47,11 +49,13 @@
         font-size: 2rem;
       }
       .countdown {
-        gap: 8px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 columns */
+        gap: 12px;
       }
       .time-box {
-        padding: 10px 15px;
-        min-width: 60px;
+        padding: 12px 10px;
+        min-width: auto;
       }
       .number {
         font-size: 1.4rem;
