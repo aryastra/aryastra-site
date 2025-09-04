@@ -25,7 +25,7 @@
     }
     .countdown {
       display: flex;
-      flex-wrap: wrap; /* Allow wrapping on small screens */
+      flex-wrap: wrap; /* allow wrapping for mobile */
       gap: 10px;
       justify-content: center;
     }
@@ -69,8 +69,8 @@
   </div>
 
   <script>
-    const launchDate = new Date();
-    launchDate.setMonth(launchDate.getMonth() + 3);
+    // Fixed launch date (3 months from now → Dec 5, 2025, midnight)
+    const launchDate = new Date("December 5, 2025 00:00:00").getTime();
 
     function updateCountdown() {
       const now = new Date().getTime();
