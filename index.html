@@ -9,54 +9,73 @@
       margin: 0;
       height: 100vh;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       background: black;
       color: white;
       font-family: 'Arial', sans-serif;
-      overflow: hidden;
-    }
-    .wrapper {
-      position: relative;
       text-align: center;
-      font-size: 2.5rem;
-      letter-spacing: 3px;
-      color: rgba(255, 255, 255, 0.1); /* faint text */
-      display: inline-block;
     }
-    .highlight {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      color: white;
-      clip-path: circle(0px at 50% 50%);
-      pointer-events: none;
-      transition: clip-path 0.15s ease-out;
+    h1 {
+      font-size: 3rem;
+      letter-spacing: 3px;
+      margin-bottom: 20px;
+    }
+    .countdown {
+      display: flex;
+      gap: 20px;
+      font-size: 1.5rem;
+    }
+    .time-box {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px 30px;
+      border-radius: 10px;
+      min-width: 80px;
+    }
+    .number {
+      font-size: 2rem;
+      font-weight: bold;
+      display: block;
     }
   </style>
 </head>
 <body>
-  <div class="wrapper">
-    <div>COMING SOON</div>
-    <div class="highlight">COMING SOON</div>
+  <h1>COMING SOON</h1>
+  <div class="countdown">
+    <div class="time-box"><span id="days" class="number">0</span>Days</div>
+    <div class="time-box"><span id="hours" class="number">0</span>Hours</div>
+    <div class="time-box"><span id="minutes" class="number">0</span>Minutes</div>
+    <div class="time-box"><span id="seconds" class="number">0</span>Seconds</div>
   </div>
 
   <script>
-    const wrapper = document.querySelector('.wrapper');
-    const highlight = document.querySelector('.highlight');
+    // Set countdown date (3 months from now)
+    const launchDate = new Date();
+    launchDate.setMonth(launchDate.getMonth() + 3);
 
-    wrapper.addEventListener('mousemove', (e) => {
-      const rect = wrapper.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      highlight.style.clipPath = `circle(120px at ${x}px ${y}px)`;
-    });
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = launchDate - now;
 
-    wrapper.addEventListener('mouseleave', () => {
-      highlight.style.clipPath = "circle(0px at 50% 50%)"; // hide when mouse leaves
-    });
+      if (distance < 0) {
+        document.querySelector('.countdown').innerHTML = "We Are Live!";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("days").innerText = days;
+      document.getElementById("hours").innerText = hours;
+      document.getElementById("minutes").innerText = minutes;
+      document.getElementById("seconds").innerText = seconds;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown(); // initial call
   </script>
 </body>
 </html>
