@@ -225,42 +225,48 @@
         }
 
         /* ---- MEDIA QUERY FOR MOBILE ---- */
-        @media (max-width: 768px) {
-            .main-title {
-                font-size: 1.5rem;
-                padding: 10px 20px;
-                top: 20px;
-            }
+        /* ---- MEDIA QUERY FOR MOBILE RESPONSIVENESS ---- */
+@media (max-width: 768px) {
+    .main-title {
+        /* Scale down the title */
+        font-size: 1.5rem;
+        padding: 10px 20px;
+        top: 20px;
+    }
 
-            .subheading {
-                font-size: 1rem;
-                margin-bottom: 30px;
-            }
+    .subheading {
+        font-size: 1rem;
+        margin-bottom: 30px;
+    }
 
-            .countdown {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 20px;
-                max-width: 320px;
-            }
+    .countdown {
+        /* UPDATED: Switched from flex to grid for a perfect 2x2 layout */
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Creates two equal columns */
+        justify-items: center; /* Centers each section within its grid cell */
+        gap: 20px;
+        max-width: 320px;
+    }
 
-            .time-section {
-                width: calc(50% - 10px);
-            }
+    .time-section {
+        /* REMOVED: The fixed width is no longer needed */
+        width: auto;
+    }
 
-            .time-segment {
-                font-size: 40px;
-                width: 40px;
-            }
+    .time-segment {
+        /* Scale down the countdown cards */
+        font-size: 40px;
+        width: 40px;
+    }
 
-            .segment-overlay {
-                width: 40px;
-            }
+    .segment-overlay {
+        width: 40px;
+    }
 
-            .time-section p {
-                font-size: 12px;
-            }
-        }
+    .time-section p {
+        font-size: 12px;
+    }
+}
     </style>
 </head>
 <body>
