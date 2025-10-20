@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARYASTRA - Coming Soon</title>
+    <title>Aryastra - Coming Soon</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,9 +22,9 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #F0F2F5; 
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
+            /* The solid background is removed so the canvas is visible */
         }
 
         #particle-canvas {
@@ -47,12 +47,14 @@
             color: #2D3748;
             letter-spacing: 5px;
             text-transform: uppercase;
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(10px);
+            
+            /* The correct, simple glass effect */
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.7);
+            border: 3px solid rgba(255, 255, 255, 0.3);
             border-radius: 12px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.1);
         }
 
         .main-content {
@@ -62,227 +64,70 @@
             padding: 20px;
         }
 
+        .countdown-container {
+            /* The correct, simple glass effect */
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         .subheading {
             color: #4A5568;
             font-weight: 300;
             font-size: 1.5rem;
             letter-spacing: 5px;
             text-transform: uppercase;
-            margin-bottom: 40px;
-            text-align: center;
-        }
-
-        .countdown {
-            display: flex;
-            gap: 15px;
-        }
-
-        .time-section {
+            margin-bottom: 30px; 
             text-align: center;
         }
         
-        .time-section p {
-            font-size: 16px;
-            font-weight: 400;
-            color: #718096;
-            margin-top: 10px;
-        }
-
-        .time-group {
-            display: flex;
-            gap: 6px;
-        }
-
-        .time-segment {
-            display: block;
-            font-size: 60px;
-            font-weight: 700; 
-            width: 60px;
-            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.07));
-        }
-
-        .segment-display {
-            position: relative;
-            height: 100%;
-        }
-
-        .segment-display__top,
-        .segment-display__bottom {
-            overflow: hidden;
-            text-align: center;
-            width: 100%;
-            height: 50%;
-            position: relative;
-        }
-
-        .segment-display__top {
-            line-height: 1.5;
-            color: #2B6CB0;
-            background-color: #FFFFFF;
-            border-radius: 8px 8px 0 0;
-        }
-
-        .segment-display__bottom {
-            line-height: 0;
-            color: #2B6CB0;
-            background-color: #F7FAFC;
-            border-radius: 0 0 8px 8px;
-        }
-
-        .segment-overlay {
-            position: absolute;
-            top: 0;
-            perspective: 400px;
-            height: 100%;
-            width: 60px;
-        }
-
-        .segment-overlay__top,
-        .segment-overlay__bottom {
-            position: absolute;
-            overflow: hidden;
-            text-align: center;
-            width: 100%;
-            height: 50%;
-        }
-
-        .segment-overlay__top {
-            top: 0;
-            line-height: 1.5;
-            color: #2B6CB0;
-            background-color: #FFFFFF;
-            transform-origin: bottom;
-            border-radius: 8px 8px 0 0;
-        }
-
-        .segment-overlay__bottom {
-            bottom: 0;
-            line-height: 0;
-            color: #2B6CB0;
-            background-color: #F7FAFC;
-            border-top: 1px solid #E2E8F0;
-            transform-origin: top;
-            border-radius: 0 0 8px 8px;
-        }
-
+        .countdown { display: flex; gap: 15px; }
+        .time-section { text-align: center; }
+        .time-section p { font-size: 16px; font-weight: 400; color: #718096; margin-top: 10px; }
+        .time-group { display: flex; gap: 6px; }
+        .time-segment { display: block; font-size: 60px; font-weight: 700; width: 60px; filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.07)); }
+        .segment-display { position: relative; height: 100%; }
+        .segment-display__top, .segment-display__bottom { overflow: hidden; text-align: center; width: 100%; height: 50%; position: relative; }
+        .segment-display__top { line-height: 1.5; color: #2B6CB0; background-color: #FFFFFF; border-radius: 8px 8px 0 0; }
+        .segment-display__bottom { line-height: 0; color: #2B6CB0; background-color: #F7FAFC; border-radius: 0 0 8px 8px; }
+        .segment-overlay { position: absolute; top: 0; perspective: 400px; height: 100%; width: 60px; }
+        .segment-overlay__top, .segment-overlay__bottom { position: absolute; overflow: hidden; text-align: center; width: 100%; height: 50%; }
+        .segment-overlay__top { top: 0; line-height: 1.5; color: #2B6CB0; background-color: #FFFFFF; transform-origin: bottom; border-radius: 8px 8px 0 0; }
+        .segment-overlay__bottom { bottom: 0; line-height: 0; color: #2B6CB0; background-color: #F7FAFC; border-top: 1px solid #E2E8F0; transform-origin: top; border-radius: 0 0 8px 8px; }
         .segment-overlay.flip .segment-overlay__top { animation: flip-top 0.8s linear; }
         .segment-overlay.flip .segment-overlay__bottom { animation: flip-bottom 0.8s linear; }
-
-        @keyframes flip-top {
-            0% { transform: rotateX(0deg); }
-            50%, 100% { transform: rotateX(-90deg); }
-        }
-
-        @keyframes flip-bottom {
-            0%, 50% { transform: rotateX(90deg); }
-            100% { transform: rotateX(0deg); }
-        }
-        
-        /* ---- NEW: FOOTER STYLES ---- */
-        footer {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            width: 100%;
-        }
-
-        .card-social {
-            margin-bottom: 15px;
-        }
-
-        .social-link {
-            display: inline-flex;
-            width: 40px;
-            height: 40px;
-            margin: 0 10px;
-            align-items: center;
-            justify-content: center;
-            background-color: #E2E8F0; /* Light grey */
-            color: #4A5568; /* Dark grey icon */
-            font-size: 18px;
-            border-radius: 50%;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .social-link:hover {
-            transform: scale(1.1) translateY(-3px);
-            background-color: #2B6CB0; /* Blue accent */
-            color: #FFFFFF;
-            box-shadow: 0 4px 15px rgba(43, 108, 176, 0.4);
-        }
-
-        .copyright-text {
-            font-size: 0.9rem;
-            color: #718096; /* Soft grey */
-        }
-
-        .copyright-symbol {
-            font-size: 0.8em;
-            vertical-align: text-top;
-        }
-
-        /* ---- MEDIA QUERY FOR MOBILE ---- */
-        /* ---- MEDIA QUERY FOR MOBILE RESPONSIVENESS ---- */
-@media (max-width: 768px) {
-    .main-title {
-        /* Scale down the title */
-        font-size: 1.5rem;
-        padding: 10px 20px;
-        top: 20px;
-    }
-
-    .subheading {
-        font-size: 1rem;
-        margin-bottom: 30px;
-    }
-
-    .countdown {
-        /* UPDATED: Switched from flex to grid for a perfect 2x2 layout */
-        display: grid;
-        grid-template-columns: 1fr 1fr; /* Creates two equal columns */
-        justify-items: center; /* Centers each section within its grid cell */
-        gap: 20px;
-        max-width: 320px;
-    }
-
-    .time-section {
-        /* REMOVED: The fixed width is no longer needed */
-        width: auto;
-    }
-
-    .time-segment {
-        /* Scale down the countdown cards */
-        font-size: 40px;
-        width: 40px;
-    }
-
-    .segment-overlay {
-        width: 40px;
-    }
-
-    .time-section p {
-        font-size: 12px;
-    }
-}
+        @keyframes flip-top { 0% { transform: rotateX(0deg); } 50%, 100% { transform: rotateX(-90deg); } }
+        @keyframes flip-bottom { 0%, 50% { transform: rotateX(90deg); } 100% { transform: rotateX(0deg); } }
+        footer { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); text-align: center; width: 100%; }
+        .card-social { margin-bottom: 15px; }
+        .social-link { display: inline-flex; width: 40px; height: 40px; margin: 0 10px; align-items: center; justify-content: center; background-color: #E2E8F0; color: #4A5568; font-size: 18px; border-radius: 50%; text-decoration: none; transition: all 0.3s ease; }
+        .social-link:hover { transform: scale(1.1) translateY(-3px); background-color: #2B6CB0; color: #FFFFFF; box-shadow: 0 4px 15px rgba(43, 108, 176, 0.4); }
+        .copyright-text { font-size: 0.9rem; color: #718096; }
+        .copyright-symbol { font-size: 0.8em; vertical-align: text-top; }
+        @media (max-width: 768px) { .main-title { font-size: 1.5rem; padding: 10px 20px; top: 20px; } .countdown-container { padding: 30px; } .subheading { font-size: 1rem; margin-bottom: 30px; } .countdown { display: grid; grid-template-columns: 1fr 1fr; justify-items: center; gap: 20px; max-width: 320px; } .time-section { width: auto; } .time-segment { font-size: 40px; width: 40px; } .segment-overlay { width: 40px; } .time-section p { font-size: 12px; } }
     </style>
 </head>
 <body>
-
-    <canvas id="particle-canvas"></canvas>
     
+    <canvas id="particle-canvas"></canvas>
     <h1 class="main-title">ARYASTRA</h1>
 
     <div class="main-content">
-        <h2 class="subheading">Deploying In</h2>
-
-        <div class="countdown">
-            <div class="time-section" id="days"><div class="time-group"><div class="time-segment"><div class="segment-display"><div class="segment-display__top"></div><div class="segment-display__bottom"></div><div class="segment-overlay"><div class="segment-overlay__top"></div><div class="segment-overlay__bottom"></div></div></div></div><div class="time-segment"><div class="segment-display"><div class="segment-display__top"></div><div class="segment-display__bottom"></div><div class="segment-overlay"><div class="segment-overlay__top"></div><div class="segment-overlay__bottom"></div></div></div></div><div class="time-segment"><div class="segment-display"><div class="segment-display__top"></div><div class="segment-display__bottom"></div><div class="segment-overlay"><div class="segment-overlay__top"></div><div class="segment-overlay__bottom"></div></div></div></div></div><p>Days</p></div>
-            <div class="time-section" id="hours"><div class="time-group"><div class="time-segment"><div class="segment-display"><div class="segment-display__top"></div><div class="segment-display__bottom"></div><div class="segment-overlay"><div class="segment-overlay__top"></div><div class="segment-overlay__bottom"></div></div></div></div><div class="time-segment"><div class="segment-display"><div class="segment-display__top"></div><div class="segment-display__bottom"></div><div class="segment-overlay"><div class="segment-overlay__top"></div><div class="segment-overlay__bottom"></div></div></div></div></div><p>Hours</p></div>
-            <div class="time-section" id="minutes"><div class="time-group"><div class="time-segment"><div class="segment-display"><div class="segment-display__top"></div><div class="segment-display__bottom"></div><div class="segment-overlay"><div class="segment-overlay__top"></div><div class="segment-overlay__bottom"></div></div></div></div><div class="time-segment"><div class="segment-display"><div class="segment-display__top"></div><div class="segment-display__bottom"></div><div class="segment-overlay"><div class="segment-overlay__top"></div><div class="segment-overlay__bottom"></div></div></div></div></div><p>Minutes</p></div>
-            <div class="time-section" id="seconds"><div class="time-group"><div class="time-segment"><div class="segment-display"><div class="segment-display__top"></div><div class="segment-display__bottom"></div><div class="segment-overlay"><div class="segment-overlay__top"></div><div class="segment-overlay__bottom"></div></div></div></div><div class="time-segment"><div class="segment-display"><div class="segment-display__top"></div><div class="segment-display__bottom"></div><div class="segment-overlay"><div class="segment-overlay__top"></div><div class="segment-overlay__bottom"></div></div></div></div></div><p>Seconds</p></div>
+        <div class="countdown-container">
+            <h2 class="subheading">Deploying In</h2>
+            <div class="countdown">
+                <div class="time-section" id="days"><div class="time-group"><div class="time-segment"><div class="segment-display"><div class="segment-display__top"></div><div class="segment-display__bottom"></div><div class="segment-overlay"><div class="segment-overlay__top"></div><div class="segment-overlay__bottom"></div></div></div></div><div class="time-segment"><div class="segment-display"><div class="segment-display__top"></div><div class="segment-display__bottom"></div><div class="segment-overlay"><div class="segment-overlay__top"></div><div class="segment-overlay__bottom"></div></div></div></div><div class="time-segment"><div class="segment-display"><div class="segment-display__top"></div><div class="segment-display__bottom"></div><div class="segment-overlay"><div class="segment-overlay__top"></div><div class="segment-overlay__bottom"></div></div></div></div></div><p>Days</p></div>
+                <div class="time-section" id="hours"><div class="time-group"><div class="time-segment"><div class="segment-display"><div class="segment-display__top"></div><div class="segment-display__bottom"></div><div class="segment-overlay"><div class="segment-overlay__top"></div><div class="segment-overlay__bottom"></div></div></div></div><div class="time-segment"><div class="segment-display"><div class="segment-display__top"></div><div class="segment-display__bottom"></div><div class="segment-overlay"><div class="segment-overlay__top"></div><div class="segment-overlay__bottom"></div></div></div></div></div><p>Hours</p></div>
+                <div class="time-section" id="minutes"><div class="time-group"><div class="time-segment"><div class="segment-display"><div class="segment-display__top"></div><div class="segment-display__bottom"></div><div class="segment-overlay"><div class="segment-overlay__top"></div><div class="segment-overlay__bottom"></div></div></div></div><div class="time-segment"><div class="segment-display"><div class="segment-display__top"></div><div class="segment-display__bottom"></div><div class="segment-overlay"><div class="segment-overlay__top"></div><div class="segment-overlay__bottom"></div></div></div></div></div><p>Minutes</p></div>
+                <div class="time-section" id="seconds"><div class="time-group"><div class="time-segment"><div class="segment-display"><div class="segment-display__top"></div><div class="segment-display__bottom"></div><div class="segment-overlay"><div class="segment-overlay__top"></div><div class="segment-overlay__bottom"></div></div></div></div><div class="time-segment"><div class="segment-display"><div class="segment-display__top"></div><div class="segment-display__bottom"></div><div class="segment-overlay"><div class="segment-overlay__top"></div><div class="segment-overlay__bottom"></div></div></div></div></div><p>Seconds</p></div>
+            </div>
         </div>
     </div>
     
@@ -297,7 +142,7 @@
     </footer>
 
     <script>
-        // --- PARTICLE ANIMATION SCRIPT ---
+        // The JavaScript for the countdown and particles remains unchanged
         const particleCanvas = document.getElementById('particle-canvas');
         const particleCtx = particleCanvas.getContext('2d');
         particleCanvas.width = window.innerWidth;
@@ -321,8 +166,6 @@
         window.addEventListener('resize', () => { particleCanvas.width = window.innerWidth; particleCanvas.height = window.innerHeight; initParticles(); });
         initParticles();
         animateParticles();
-
-        // --- COUNTDOWN TIMER SCRIPT ---
         const targetDate = new Date('2025-12-16T00:00:00+05:30');
         function getTimeSegmentElements(segmentElement) { return { segmentDisplayTop: segmentElement.querySelector('.segment-display__top'), segmentDisplayBottom: segmentElement.querySelector('.segment-display__bottom'), segmentOverlay: segmentElement.querySelector('.segment-overlay'), segmentOverlayTop: segmentElement.querySelector('.segment-overlay__top'), segmentOverlayBottom: segmentElement.querySelector('.segment-overlay__bottom') }; }
         function updateSegmentValues(displayElement, overlayElement, value) { displayElement.textContent = value; overlayElement.textContent = value; }
