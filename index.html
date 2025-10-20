@@ -112,17 +112,21 @@
         .copyright-text { font-size: 0.9rem; color: #718096; }
         .copyright-symbol { font-size: 0.8em; vertical-align: text-top; }
         /* ---- MEDIA QUERY FOR MOBILE RESPONSIVENESS ---- */
+/* ---- MEDIA QUERY FOR MOBILE RESPONSIVENESS ---- */
 @media (max-width: 768px) {
     .main-title {
         font-size: 1.5rem;
         padding: 10px 20px;
         top: 20px;
+        /* Ensure title doesn't overflow on very narrow screens */
+        width: 90%;
+        text-align: center;
     }
 
     .countdown-container {
-        /* UPDATED: Make the container flexible and adjust padding */
-        width: 100%;
-        padding: 30px 20px;
+        /* Let the container take up most of the screen width */
+        width: 90vw;
+        padding: 20px;
     }
 
     .subheading {
@@ -134,8 +138,8 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         justify-items: center;
-        gap: 20px;
-        /* UPDATED: Remove the fixed max-width to allow the grid to be flexible */
+        gap: 15px;
+        /* FIX: Remove the fixed max-width to allow the grid to be flexible */
         width: 100%;
     }
 
@@ -143,15 +147,19 @@
         width: auto;
     }
 
+    /* This makes the countdown digits and cards scale down */
     .time-segment {
-        font-size: 40px;
-        width: 40px;
+        font-size: 10vw;
+        width: 10vw;
+        /* Add a max value to prevent them from getting too big on wider mobile screens */
+        max-width: 45px;
+        max-height: 60px;
     }
 
     .segment-overlay {
-        width: 40px;
+        width: 100%;
     }
-
+    
     .time-section p {
         font-size: 12px;
     }
