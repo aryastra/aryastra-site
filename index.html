@@ -11,83 +11,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
     
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { display: flex; justify-content: center; align-items: center; min-height: 100vh; font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            /* The solid background is removed so the canvas is visible */
-        }
-
-        #particle-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-        
-        .main-title {
-            position: absolute;
-            top: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 15px 40px;
-            font-size: 2rem;
-            font-weight: 700;
-            color: #2D3748;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            
-            /* The correct, simple glass effect */
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 12px;
-            box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.1);
-        }
-
-        .main-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .countdown-container {
-            /* The correct, simple glass effect */
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .subheading {
-            color: #4A5568;
-            font-weight: 300;
-            font-size: 1.5rem;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            margin-bottom: 30px; 
-            text-align: center;
-        }
-        
+        #particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .main-title { position: absolute; top: 40px; left: 50%; transform: translateX(-50%); padding: 15px 40px; font-size: 2rem; font-weight: 700; color: #9babc7; letter-spacing: 5px; text-transform: uppercase; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); border: 3px solid rgba(255, 255, 255, 0.3); border-radius: 12px; box-shadow: inset 0 0 8px 1px rgba(0, 0, 0, 0.2); }
+        .main-content { display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .countdown-container { background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); border: 3px solid rgba(255, 255, 255, 0.3); border-radius: 20px; padding: 40px; box-shadow: inset 0 0 8px 1px rgba(0, 0, 0, 0.2); display: flex; flex-direction: column; align-items: center; }
+        .subheading { color: #4A5568; font-weight: 300; font-size: 1.5rem; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 30px; text-align: center; }
         .countdown { display: flex; gap: 15px; }
         .time-section { text-align: center; }
         .time-section p { font-size: 16px; font-weight: 400; color: #718096; margin-top: 10px; }
@@ -111,63 +43,50 @@
         .social-link:hover { transform: scale(1.1) translateY(-3px); background-color: #2B6CB0; color: #FFFFFF; box-shadow: 0 4px 15px rgba(43, 108, 176, 0.4); }
         .copyright-text { font-size: 0.9rem; color: #718096; }
         .copyright-symbol { font-size: 0.8em; vertical-align: text-top; }
-        /* ---- MEDIA QUERY FOR MOBILE RESPONSIVENESS ---- */
-/* ---- MEDIA QUERY FOR MOBILE RESPONSIVENESS ---- */
-@media (max-width: 768px) {
-    .main-title {
-        font-size: 1.5rem;
-        padding: 10px 20px;
-        top: 20px;
-        /* Ensure title doesn't overflow on very narrow screens */
-        width: 90%;
-        text-align: center;
-    }
 
-    .countdown-container {
-        /* Let the container take up most of the screen width */
-        width: 90vw;
-        padding: 20px;
-    }
-
-    .subheading {
-        font-size: 1rem;
-        margin-bottom: 30px;
-    }
-
-    .countdown {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        justify-items: center;
-        gap: 15px;
-        /* FIX: Remove the fixed max-width to allow the grid to be flexible */
-        width: 100%;
-    }
-
-    .time-section {
-        width: auto;
-    }
-
-    /* This makes the countdown digits and cards scale down */
-    .time-segment {
-        font-size: 10vw;
-        width: 10vw;
-        /* Add a max value to prevent them from getting too big on wider mobile screens */
-        max-width: 45px;
-        max-height: 60px;
-    }
-
-    .segment-overlay {
-        width: 100%;
-    }
-    
-    .time-section p {
-        font-size: 12px;
-    }
-}
+        /* ---- CORRECTED MEDIA QUERY ---- */
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 1.5rem;
+                padding: 10px 20px;
+                top: 20px;
+                width: auto; /* Let it size itself */
+                white-space: nowrap; /* Prevent wrapping */
+            }
+            .countdown-container {
+                width: 90vw;
+                padding: 30px 20px;
+            }
+            .subheading {
+                font-size: 1rem;
+                margin-bottom: 30px;
+            }
+            .countdown {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                justify-items: center;
+                gap: 20px;
+                width: 100%;
+            }
+            .time-section {
+                width: auto;
+            }
+            /* FIX: Use stable pixel sizes for the cards to maintain shape */
+            .time-segment {
+                font-size: 45px;
+                width: 45px;
+            }
+            .segment-overlay {
+                width: 45px;
+            }
+            .time-section p {
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 <body>
-    
+
     <canvas id="particle-canvas"></canvas>
     <h1 class="main-title">ARYASTRA</h1>
 
@@ -194,39 +113,60 @@
     </footer>
 
     <script>
-        // The JavaScript for the countdown and particles remains unchanged
-        const particleCanvas = document.getElementById('particle-canvas');
-        const particleCtx = particleCanvas.getContext('2d');
-        particleCanvas.width = window.innerWidth;
-        particleCanvas.height = window.innerHeight;
-        let particles = [];
-        const particleCount = 60;
-        const connectDistance = 120;
-        const particleColor = '#2B6CB0';
-        const lineColor = 'rgba(43, 108, 176, OPACITY)';
-        const mouse = { x: null, y: null, radius: 75 };
-        window.addEventListener('mousemove', (event) => { mouse.x = event.clientX; mouse.y = event.clientY; });
-        window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
-        class Particle {
-            constructor(x, y, dirX, dirY, size) { this.x = x; this.y = y; this.directionX = dirX; this.directionY = dirY; this.size = size; }
-            draw() { particleCtx.beginPath(); particleCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); particleCtx.fillStyle = particleColor; particleCtx.fill(); }
-            update() { if (this.x > particleCanvas.width || this.x < 0) this.directionX *= -1; if (this.y > particleCanvas.height || this.y < 0) this.directionY *= -1; let dx = mouse.x - this.x; let dy = mouse.y - this.y; if (Math.sqrt(dx * dx + dy * dy) < mouse.radius) { this.x -= dx / 20; this.y -= dy / 20; } else { this.x += this.directionX; this.y += this.directionY; } if (this.x > particleCanvas.width) { this.x = particleCanvas.width; this.directionX *= -1; } else if (this.x < 0) { this.x = 0; this.directionX *= -1; } if (this.y > particleCanvas.height) { this.y = particleCanvas.height; this.directionY *= -1; } else if (this.y < 0) { this.y = 0; this.directionY *= -1; } this.draw(); }
-        }
-        function initParticles() { particles = []; for (let i = 0; i < particleCount; i++) { let size = Math.random() * 2 + 1; let x = Math.random() * (particleCanvas.width - size * 2) + size; let y = Math.random() * (particleCanvas.height - size * 2) + size; let dirX = (Math.random() * 0.4) - 0.2; let dirY = (Math.random() * 0.4) - 0.2; particles.push(new Particle(x, y, dirX, dirY, size)); } }
-        function connectParticles() { for (let a = 0; a < particles.length; a++) { for (let b = a; b < particles.length; b++) { let distance = ((particles[a].x - particles[b].x) ** 2) + ((particles[a].y - particles[b].y) ** 2); if (distance < (connectDistance ** 2)) { let opacity = 1 - (distance / (connectDistance ** 2)); particleCtx.strokeStyle = lineColor.replace('OPACITY', opacity); particleCtx.lineWidth = 1; particleCtx.beginPath(); particleCtx.moveTo(particles[a].x, particles[a].y); particleCtx.lineTo(particles[b].x, particles[b].y); particleCtx.stroke(); } } } }
-        function animateParticles() { requestAnimationFrame(animateParticles); particleCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height); particles.forEach(p => p.update()); connectParticles(); }
-        window.addEventListener('resize', () => { particleCanvas.width = window.innerWidth; particleCanvas.height = window.innerHeight; initParticles(); });
-        initParticles();
-        animateParticles();
-        const targetDate = new Date('2025-12-16T00:00:00+05:30');
-        function getTimeSegmentElements(segmentElement) { return { segmentDisplayTop: segmentElement.querySelector('.segment-display__top'), segmentDisplayBottom: segmentElement.querySelector('.segment-display__bottom'), segmentOverlay: segmentElement.querySelector('.segment-overlay'), segmentOverlayTop: segmentElement.querySelector('.segment-overlay__top'), segmentOverlayBottom: segmentElement.querySelector('.segment-overlay__bottom') }; }
-        function updateSegmentValues(displayElement, overlayElement, value) { displayElement.textContent = value; overlayElement.textContent = value; }
-        function updateTimeSegment(segmentElement, timeValue) { const segmentElements = getTimeSegmentElements(segmentElement); if (parseInt(segmentElements.segmentDisplayTop.textContent, 10) === timeValue) { return; } segmentElements.segmentOverlay.classList.add('flip'); updateSegmentValues(segmentElements.segmentDisplayTop, segmentElements.segmentOverlayBottom, timeValue); function finishAnimation() { segmentElements.segmentOverlay.classList.remove('flip'); updateSegmentValues(segmentElements.segmentDisplayBottom, segmentElements.segmentOverlayTop, timeValue); this.removeEventListener('animationend', finishAnimation); } segmentElements.segmentOverlay.addEventListener('animationend', finishAnimation); }
-        function updateTimeSection(sectionID, timeValue) { const sectionElement = document.getElementById(sectionID); const timeSegments = sectionElement.querySelectorAll('.time-segment'); if (timeSegments.length === 3) { const hundredthDigit = Math.floor(timeValue / 100) || 0; const tenthDigit = Math.floor((timeValue % 100) / 10) || 0; const singleDigit = timeValue % 10 || 0; updateTimeSegment(timeSegments[0], hundredthDigit); updateTimeSegment(timeSegments[1], tenthDigit); updateTimeSegment(timeSegments[2], singleDigit); } else { const firstNumber = Math.floor(timeValue / 10) || 0; const secondNumber = timeValue % 10 || 0; updateTimeSegment(timeSegments[0], firstNumber); updateTimeSegment(timeSegments[1], secondNumber); } }
-        function getTimeRemaining(targetDateTime) { const nowTime = Date.now(); const complete = nowTime >= targetDateTime; if (complete) { return { complete, days: 0, hours: 0, minutes: 0, seconds: 0 }; } const secondsRemaining = Math.floor((targetDateTime - nowTime) / 1000); const days = Math.floor(secondsRemaining / (60 * 60 * 24)); const hours = Math.floor((secondsRemaining % (60 * 60 * 24)) / (60 * 60)); const minutes = Math.floor((secondsRemaining % (60 * 60)) / 60); const seconds = secondsRemaining % 60; return { complete, days, hours, minutes, seconds }; }
-        function updateAllSegments() { const timeRemainingBits = getTimeRemaining(targetDate.getTime()); updateTimeSection('days', timeRemainingBits.days); updateTimeSection('hours', timeRemainingBits.hours); updateTimeSection('minutes', timeRemainingBits.minutes); updateTimeSection('seconds', timeRemainingBits.seconds); return timeRemainingBits.complete; }
-        const countdownTimer = setInterval(() => { const isComplete = updateAllSegments(); if (isComplete) { clearInterval(countdownTimer); } }, 1000);
-        updateAllSegments();
+        // FIX: Wrap all script logic in this event listener
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- PARTICLE ANIMATION SCRIPT ---
+            const particleCanvas = document.getElementById('particle-canvas');
+            const particleCtx = particleCanvas.getContext('2d');
+            particleCanvas.width = window.innerWidth;
+            particleCanvas.height = window.innerHeight;
+            let particles = [];
+            const particleCount = 60;
+            const connectDistance = 120;
+            const particleColor = '#2B6CB0';
+            const lineColor = 'rgba(43, 108, 176, OPACITY)';
+            const mouse = { x: null, y: null, radius: 75 };
+            window.addEventListener('mousemove', (event) => { mouse.x = event.clientX; mouse.y = event.clientY; });
+            window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
+            class Particle {
+                constructor(x, y, dirX, dirY, size) { this.x = x; this.y = y; this.directionX = dirX; this.directionY = dirY; this.size = size; }
+                draw() { particleCtx.beginPath(); particleCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); particleCtx.fillStyle = particleColor; particleCtx.fill(); }
+                update() { if (this.x > particleCanvas.width || this.x < 0) this.directionX *= -1; if (this.y > particleCanvas.height || this.y < 0) this.directionY *= -1; let dx = mouse.x - this.x; let dy = mouse.y - this.y; if (Math.sqrt(dx * dx + dy * dy) < mouse.radius) { this.x -= dx / 20; this.y -= dy / 20; } else { this.x += this.directionX; this.y += this.directionY; } if (this.x > particleCanvas.width) { this.x = particleCanvas.width; this.directionX *= -1; } else if (this.x < 0) { this.x = 0; this.directionX *= -1; } if (this.y > particleCanvas.height) { this.y = particleCanvas.height; this.directionY *= -1; } else if (this.y < 0) { this.y = 0; this.directionY *= -1; } this.draw(); }
+            }
+            function initParticles() { particles = []; for (let i = 0; i < particleCount; i++) { let size = Math.random() * 2 + 1; let x = Math.random() * (particleCanvas.width - size * 2) + size; let y = Math.random() * (particleCanvas.height - size * 2) + size; let dirX = (Math.random() * 0.4) - 0.2; let dirY = (Math.random() * 0.4) - 0.2; particles.push(new Particle(x, y, dirX, dirY, size)); } }
+            function connectParticles() { for (let a = 0; a < particles.length; a++) { for (let b = a; b < particles.length; b++) { let distance = ((particles[a].x - particles[b].x) ** 2) + ((particles[a].y - particles[b].y) ** 2); if (distance < (connectDistance ** 2)) { let opacity = 1 - (distance / (connectDistance ** 2)); particleCtx.strokeStyle = lineColor.replace('OPACITY', opacity); particleCtx.lineWidth = 1; particleCtx.beginPath(); particleCtx.moveTo(particles[a].x, particles[a].y); particleCtx.lineTo(particles[b].x, particles[b].y); particleCtx.stroke(); } } } }
+            function animateParticles() { requestAnimationFrame(animateParticles); particleCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height); particles.forEach(p => p.update()); connectParticles(); }
+            window.addEventListener('resize', () => { particleCanvas.width = window.innerWidth; particleCanvas.height = window.innerHeight; initParticles(); });
+            initParticles();
+            animateParticles();
+
+            // --- COUNTDOWN TIMER SCRIPT ---
+            const targetDate = new Date('2025-12-16T00:00:00+05:30');
+            function getTimeSegmentElements(segmentElement) { return { segmentDisplayTop: segmentElement.querySelector('.segment-display__top'), segmentDisplayBottom: segmentElement.querySelector('.segment-display__bottom'), segmentOverlay: segmentElement.querySelector('.segment-overlay'), segmentOverlayTop: segmentElement.querySelector('.segment-overlay__top'), segmentOverlayBottom: segmentElement.querySelector('.segment-overlay__bottom') }; }
+            function updateSegmentValues(displayElement, overlayElement, value) { displayElement.textContent = value; overlayElement.textContent = value; }
+            function updateTimeSegment(segmentElement, timeValue) { const segmentElements = getTimeSegmentElements(segmentElement); if (parseInt(segmentElements.segmentDisplayTop.textContent, 10) === timeValue) { return; } segmentElements.segmentOverlay.classList.add('flip'); updateSegmentValues(segmentElements.segmentDisplayTop, segmentElements.segmentOverlayBottom, timeValue); function finishAnimation() { segmentElements.segmentOverlay.classList.remove('flip'); updateSegmentValues(segmentElements.segmentDisplayBottom, segmentElements.segmentOverlayTop, timeValue); this.removeEventListener('animationend', finishAnimation); } segmentElements.segmentOverlay.addEventListener('animationend', finishAnimation); }
+            function updateTimeSection(sectionID, timeValue) { const sectionElement = document.getElementById(sectionID); const timeSegments = sectionElement.querySelectorAll('.time-segment'); if (timeSegments.length === 3) { const hundredthDigit = Math.floor(timeValue / 100) || 0; const tenthDigit = Math.floor((timeValue % 100) / 10) || 0; const singleDigit = timeValue % 10 || 0; updateTimeSegment(timeSegments[0], hundredthDigit); updateTimeSegment(timeSegments[1], tenthDigit); updateTimeSegment(timeSegments[2], singleDigit); } else { const firstNumber = Math.floor(timeValue / 10) || 0; const secondNumber = timeValue % 10 || 0; updateTimeSegment(timeSegments[0], firstNumber); updateTimeSegment(timeSegments[1], secondNumber); } }
+            function getTimeRemaining(targetDateTime) { const nowTime = Date.now(); const complete = nowTime >= targetDateTime; if (complete) { return { complete, days: 0, hours: 0, minutes: 0, seconds: 0 }; } const secondsRemaining = Math.floor((targetDateTime - nowTime) / 1000); const days = Math.floor(secondsRemaining / (60 * 60 * 24)); const hours = Math.floor((secondsRemaining % (60 * 60 * 24)) / (60 * 60)); const minutes = Math.floor((secondsRemaining % (60 * 60)) / 60); const seconds = secondsRemaining % 60; return { complete, days, hours, minutes, seconds }; }
+            
+            function updateAllSegments() {
+                const timeRemainingBits = getTimeRemaining(targetDate.getTime());
+                updateTimeSection('days', timeRemainingBits.days);
+                updateTimeSection('hours', timeRemainingBits.hours);
+                updateTimeSection('minutes', timeRemainingBits.minutes);
+                updateTimeSection('seconds', timeRemainingBits.seconds);
+                return timeRemainingBits.complete;
+            }
+
+            const countdownTimer = setInterval(() => {
+                const isComplete = updateAllSegments();
+                if (isComplete) {
+                    clearInterval(countdownTimer);
+                }
+            }, 1000);
+            
+            updateAllSegments();
+        });
     </script>
 </body>
 </html>
